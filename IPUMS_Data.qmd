@@ -29,7 +29,10 @@ data <- read.csv("/Users/XiziS/Downloads/usa_00002.csv")
 
 The dataset was analyzed using R [@citeR] and downloaded using the R package, Tidyverse [@citeTidyverse], Knitr [@citeKnitr]. Data are extract from Ipums_usa [@ipumsusa].
 
-# The original data
+
+# Doctoral Degree Holders by State
+
+This table provides a foundation for understanding the distribution of doctoral degree holders across states, which is crucial for the subsequent analysis. By identifying the number of individuals with doctoral degrees in each state, we can calculate ratios, such as the proportion of doctoral degree holders relative to the total population. These ratios will be used later to estimate total population figures for each state using the Laplace ratio estimator method. The data summarized here helps ensure that the estimates are grounded in actual educational attainment patterns, making the analysis more accurate and reliable.
 
 ```{r}
 #| label: tbl-doctoral
