@@ -8,3 +8,7 @@ This project uses the 2022 American Community Survey (ACS) data obtained from [I
 - **Data:** We focus on respondents whose highest educational attainment is a doctoral degree (using the `EDUCD` variable).
 - **Method:** The ratio estimator approach is used to estimate the total number of respondents in each state, leveraging California's known respondent totals.
 - **Comparison:** The estimated total respondents are compared to the actual number of respondents in each state.
+
+
+#### Statement on LLM usage:
+LLMs were not used in this analysis in any way. All code and text are written solely by the author of this repository.
