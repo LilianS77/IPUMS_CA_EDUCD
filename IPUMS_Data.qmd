@@ -1,8 +1,13 @@
 ---
-title: "Estimating State Populations Using the Ratio Estimators Approach:"
-subtitle: "A Case Study with Doctoral Degree Holders from the 2022 ACS"
+title: "A Case Study from 2022 IPUMS USA"
+subtitle: "Using the ratio estimation method is effective for estimating state populations, but significant differences exist between states."
 author: 
-  - Group 9
+  - Jianing Li
+  - Xizi Sun
+  - Yawen Tan
+  - Shanjie Jiao
+  - Xinqi Yue
+  - Duanyi Su
 thanks: "Code and data are available at: https://github.com/LilianS77/IPUMS_CA_EDUCD"
 date: today
 date-format: long
@@ -20,11 +25,11 @@ data <- read.csv("/Users/XiziS/Downloads/usa_00002.csv")
 
 ```
 
-# How to Extract 2022 ACS Data from IPUMS
+# Data tools
 
-To obtain data from IPUMS, we start by navigating to the IPUMS USA section and clicking on Get Data. Next, we go to the Select Sample section, where we uncheck the "Default sample from each year" option and instead select 2022 ACS. After selecting our sample, we proceed to add variables of interest. For state-level data, we go to Household \> Geographic and add STATEICP to our cart by clicking the plus icon next to it. For individual-level data, we might add variables from the Person section. For example, under Demographic, we could include variables like AGE, and under Person, we could add SEX and EDUCD (education attainment). Once our variables are selected, we click View Cart, then proceed by clicking Create Data Extract. At this point, we review our selections, change the Data Format to CSV, and submit our extract for processing. Then we saved it locally as usa_00002.csv.
+The dataset was analyzed using R [@citeR] and downloaded using the R package, Tidyverse [@citeTidyverse], Knitr [@citeKnitr]. Data are extract from Ipums_usa [@ipumsusa].
 
-The dataset was analyzed using R [@citeR] and downloaded using the R package, Tidyverse[@citeTidyverse], Knitr[@citeKnitr]. Data are extract from Ipums_usa[@ipumsusa].
+# The original data
 
 ```{r}
 #| label: tbl-doctoral
@@ -94,3 +99,16 @@ The discrepancies between estimates obtained from the Laplace ratio estimator an
 The assumption that the ratio of doctoral degree holders to the total population is consistent across states may not hold true, given that different states have unique educational systems, economic conditions, and access to resources. Factors like population density, local policies, and economic circumstances can influence educational attainment and response rates in surveys, leading to variations in the data.
 
 Moreover, sampling bias can occur due to differences in data sources, and the timing of data collection may not align perfectly across states, resulting in discrepancies in the statistics. Finally, statistical errors, such as rounding inaccuracies and the inherent limitations of estimation methods, can contribute to the differences between the estimated and actual values.
+
+\newpage
+
+# Appendix 
+
+## How to Extract 2022 ACS Data from IPUMS
+
+To obtain data from IPUMS, we start by navigating to the IPUMS USA section and clicking on Get Data. Next, we go to the Select Sample section, where we uncheck the "Default sample from each year" option and instead select 2022 ACS. After selecting our sample, we proceed to add variables of interest. For state-level data, we go to Household \> Geographic and add STATEICP to our cart by clicking the plus icon next to it. For individual-level data, we might add variables from the Person section. For example, under Demographic, we could include variables like AGE, and under Person, we could add SEX and EDUCD (education attainment). Once our variables are selected, we click View Cart, then proceed by clicking Create Data Extract. At this point, we review our selections, change the Data Format to CSV, and submit our extract for processing. Then we saved it locally as usa_00002.csv.
+
+\newpage
+
+# References 
+#
