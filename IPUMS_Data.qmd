@@ -32,7 +32,7 @@ The dataset was analyzed using R [@citeR] and downloaded using the R package, Ti
 
 # Doctoral Degree Holders by State
 
-This table provides a foundation for understanding the distribution of doctoral degree holders across states, which is crucial for the subsequent analysis. By identifying the number of individuals with doctoral degrees in each state, we can calculate ratios, such as the proportion of doctoral degree holders relative to the total population. These ratios will be used later to estimate total population figures for each state using the Laplace ratio estimator method. The data summarized here helps ensure that the estimates are grounded in actual educational attainment patterns, making the analysis more accurate and reliable.
+@tbl-doctoral provides a foundation for understanding the distribution of doctoral degree holders across states, which is crucial for the subsequent analysis. By identifying the number of individuals with doctoral degrees in each state, we can calculate ratios, such as the proportion of doctoral degree holders relative to the total population. These ratios will be used later to estimate total population figures for each state using the Laplace ratio estimator method. The data summarized here helps ensure that the estimates are grounded in actual educational attainment patterns, making the analysis more accurate and reliable.
 
 ```{r}
 #| label: tbl-doctoral
@@ -97,7 +97,7 @@ knitr::kable(head(comparison, 10), format = "simple", col.names = c('State Code'
 
 # Reasons for Differences Between Estimated and Actual Values
 
-The discrepancies between estimates obtained from the Laplace ratio estimator and actual values arise from several factors. One key issue is the representativeness of the sample data. If the sample does not accurately reflect the overall population, the estimates may deviate from the actual numbers. Additionally, foundational data may contain inaccuracies, such as incomplete data collection in certain regions or errors in the recorded values, which can distort the results.
+The discrepancies between estimates obtained from the Laplace ratio estimator and actual values arise from several factors (@tbl-population-estimate). One key issue is the representativeness of the sample data. If the sample does not accurately reflect the overall population, the estimates may deviate from the actual numbers. Additionally, foundational data may contain inaccuracies, such as incomplete data collection in certain regions or errors in the recorded values, which can distort the results.
 
 The assumption that the ratio of doctoral degree holders to the total population is consistent across states may not hold true, given that different states have unique educational systems, economic conditions, and access to resources. Factors like population density, local policies, and economic circumstances can influence educational attainment and response rates in surveys, leading to variations in the data.
 
