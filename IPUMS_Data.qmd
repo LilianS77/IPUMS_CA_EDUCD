@@ -1,0 +1,87 @@
+---
+title: "Estimating State Populations Using the Ratio Estimators Approach:"
+subtitle: "A Case Study with Doctoral Degree Holders from the 2022 ACS"
+author: 
+  - Group 9
+thanks: "Code and data are available at: https://github.com/LilianS77/IPUMS_CA_EDUCD"
+date: today
+date-format: long
+format: pdf 
+---
+
+```{r}
+#| echo: false
+#| warning: false
+
+library(tidyverse)
+
+data <- read.csv("/Users/XiziS/Downloads/usa_00002.csv")
+
+
+```
+
+# How to Extract 2022 ACS Data from IPUMS
+
+To obtain data from IPUMS, we start by navigating to the IPUMS USA section and clicking on Get Data. Next, we go to the Select Sample section, where we uncheck the "Default sample from each year" option and instead select 2022 ACS. After selecting our sample, we proceed to add variables of interest. For state-level data, we go to Household \> Geographic and add STATEICP to our cart by clicking the plus icon next to it. For individual-level data, we might add variables from the Person section. For example, under Demographic, we could include variables like AGE, and under Person, we could add SEX and EDUCD (education attainment). Once our variables are selected, we click View Cart, then proceed by clicking Create Data Extract. At this point, we review our selections, change the Data Format to CSV, and submit our extract for processing. Then we saved it locally as usa_00002.csv.
+
+```{r}
+#| echo: false
+#| warning: false
+#| fig-cap: "Filtering and Summarizing Doctoral Degree Holders by State"
+
+# Filter out respondents with a doctoral degree
+doctoral_data <- data %>% filter(EDUCD == 116)
+
+# Summarize the number of doctoral degree holders by state
+doctoral_count_by_state <- doctoral_data %>%
+  group_by(STATEICP) %>%
+  summarise(doctoral_count = n())
+
+# Display the summarized data
+print(doctoral_count_by_state)
+```
+
+# Overview of the Ratio Estimators Method for Population Estimation
+
+The ratio estimators approach is a statistical technique used to estimate a total population based on a known ratio between two variables from a subset of the population. In my analysis, I first calculated the ratio of doctoral degree holders to the total number of respondents in California. This ratio provides a baseline to estimate the total number of respondents in other states by applying the same proportional relationship.
+
+Once this ratio is determined, it is multiplied by the number of doctoral degree holders in each state to estimate the total population for that state. The underlying assumption here is that the relationship between doctoral degree holders and the overall population is similar across different states.
+
+This method is useful when working with partial data, as it allows for generalization from a known sample to estimate unknown totals. However, it's important to note that the accuracy of this method depends on how well the ratio holds across different regions. Discrepancies between estimated and actual figures could arise due to variations in the distribution of educational attainment across states.
+
+```{r}
+#| echo: false
+#| warning: false
+#| fig-cap: "Estimating Total Population Using Ratio and Merging with Actual Counts"
+
+# Get the number of doctoral degree holders and ratio for California
+california_total <- 391171  # Total population of California
+california_doctoral <- doctoral_count_by_state %>% 
+  filter(STATEICP == '71') %>% 
+  pull(doctoral_count)
+
+# Calculate the ratio
+california_ratio <- california_doctoral / california_total
+
+# Calculate actual population for each state
+actual_total_by_state <- data %>%
+  group_by(STATEICP) %>%
+  summarise(actual_total = n())
+
+# Estimate total population and combine with actual data
+comparison <- doctoral_count_by_state %>%
+  transmute(STATEICP, estimated_total = round(doctoral_count / california_ratio)) %>%
+  left_join(actual_total_by_state, by = "STATEICP")
+
+# Display the result
+print(comparison)
+
+```
+
+# Reasons for Differences Between Estimated and Actual Values
+
+The discrepancies between estimates obtained from the Laplace ratio estimator and actual values arise from several factors. One key issue is the representativeness of the sample data. If the sample does not accurately reflect the overall population, the estimates may deviate from the actual numbers. Additionally, foundational data may contain inaccuracies, such as incomplete data collection in certain regions or errors in the recorded values, which can distort the results.
+
+The assumption that the ratio of doctoral degree holders to the total population is consistent across states may not hold true, given that different states have unique educational systems, economic conditions, and access to resources. Factors like population density, local policies, and economic circumstances can influence educational attainment and response rates in surveys, leading to variations in the data.
+
+Moreover, sampling bias can occur due to differences in data sources, and the timing of data collection may not align perfectly across states, resulting in discrepancies in the statistics. Finally, statistical errors, such as rounding inaccuracies and the inherent limitations of estimation methods, can contribute to the differences between the estimated and actual values.
